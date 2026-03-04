@@ -1,0 +1,53 @@
+{
+  "name": "@ministryofjustice/hmpps-prisoner-facing-typescript-lib",
+  "version": "0.0.0",
+  "description": "A set of shared utilities for use with typescript projects within Prisoner Facing Services applications",
+  "keywords": [
+    "hmpps",
+    "prisoner",
+    "facing",
+    "typescript",
+    "lib",
+    "modules",
+    "node"
+  ],
+  "author": "hmpps-launchpad-devs",
+  "homepage": "https://github.com/ministryofjustice/hmpps-prisoner-facing-typescript-lib#readme",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ministryofjustice/hmpps-prisoner-facing-typescript-lib.git"
+  },
+  "private": true,
+  "workspaces": [
+    "packages/prisoner-auth"
+  ],
+  "engines": {
+    "node": "24"
+  },
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "clean": "find . -name '.eslintcache' -delete && npm run clean --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "lint-fix": "npm run lint-fix --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "check-for-updates": "npm run --workspaces check-for-updates",
+    "prepare": "hmpps-precommit-hooks-prepare",
+    "precommit:secrets": "gitleaks git --pre-commit --redact --staged --verbose --config .gitleaks/config.toml --gitleaks-ignore-path .gitleaks/.gitleaksignore",
+    "precommit:verify": "npm run clean && npm run build && npm run lint && npm test"
+  },
+  "devDependencies": {
+    "@ministryofjustice/eslint-config-hmpps": "1.0.3",
+    "@rollup/plugin-commonjs": "^29.0.0",
+    "@rollup/plugin-node-resolve": "^16.0.3",
+    "@rollup/plugin-typescript": "^12.3.0",
+    "@tsconfig/node24": "^24.0.4",
+    "@types/jest": "^30.0.0",
+    "jest": "^30.2.0",
+    "rollup": "^4.59.0",
+    "rollup-plugin-dts": "^6.3.0",
+    "ts-jest": "^29.4.6",
+    "tslib": "^2.8.1",
+    "typescript": "^5.9.3"
+  }
+}
