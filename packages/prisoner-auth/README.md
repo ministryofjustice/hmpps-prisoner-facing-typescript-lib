@@ -2,6 +2,21 @@
 
 ## Installation
 
+### Quick installation
+
+1. Add the package `@ministryofjustice/hmpps-prisoner-auth` to your `package.json`
+2. Copy the contents of [misc/install.diff](misc/install.diff) to your local folder
+```
+$ curl https://raw.githubusercontent.com/ministryofjustice/hmpps-prisoner-facing-typescript-lib/refs/heads/main/packages/prisoner-auth/src/misc/install.diff > install.diff
+```
+3. Apply the diff to carry out all the required changes
+```
+$ git apply install.diff
+```
+4. Make sure to look through the applied changes and remove the diff file before committing.
+
+### Manual installation
+
 1. Add the package `@ministryofjustice/hmpps-prisoner-auth` to your `package.json`
 2. Modify `interfaces/hmppsUser.ts` to make the following additions:
 ```
