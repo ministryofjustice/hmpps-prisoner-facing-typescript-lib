@@ -7,7 +7,7 @@ index eddaa67..26fb35e 100644
  import errorHandler from './errorHandler'
  import { appInsightsMiddleware } from './utils/azureAppInsights'
 -import authorisationMiddleware from './middleware/authorisationMiddleware'
- 
+
  import setUpAuthentication from './middleware/setUpAuthentication'
  import setUpCsrf from './middleware/setUpCsrf'
 -import setUpCurrentUser from './middleware/setUpCurrentUser'
@@ -21,9 +21,9 @@ index eddaa67..26fb35e 100644
 -  app.use(authorisationMiddleware())
    app.use(setUpCsrf())
 -  app.use(setUpCurrentUser())
- 
+
    app.use(routes(services))
- 
+
 diff --git a/server/interfaces/hmppsUser.ts b/server/interfaces/hmppsUser.ts
 index f0a6dd2..8c01550 100644
 --- a/server/interfaces/hmppsUser.ts
@@ -33,17 +33,17 @@ index f0a6dd2..8c01550 100644
 +import { LaunchpadUser } from '@ministryofjustice/hmpps-prisoner-auth'
 +
 +export type AuthSource = 'nomis' | 'delius' | 'external' | 'azuread' | 'prisoner-auth'
- 
+
  /**
   * These are the details that all user types share.
 @@ -57,4 +59,4 @@ export interface AzureADUser extends BaseUser {
    authSource: 'azuread'
  }
- 
+
 -export type HmppsUser = PrisonUser | ProbationUser | ExternalUser | AzureADUser
 +export type HmppsUser = PrisonUser | ProbationUser | ExternalUser | AzureADUser | LaunchpadUser
 diff --git a/server/middleware/setUpAuthentication.ts b/server/middleware/setUpAuthentication.ts
-index 1979d6e..dc89dcf 100644
+index 1979d6e..a954198 100644
 --- a/server/middleware/setUpAuthentication.ts
 +++ b/server/middleware/setUpAuthentication.ts
 @@ -1,12 +1,8 @@
@@ -57,13 +57,13 @@ index 1979d6e..dc89dcf 100644
  import { HmppsUser } from '../interfaces/hmppsUser'
 -import generateOauthClientToken from '../utils/clientCredentials'
 -import logger from '../../logger'
- 
+
  passport.serializeUser((user, done) => {
    // Not used but required for Passport
 @@ -18,26 +14,17 @@ passport.deserializeUser((user, done) => {
    done(null, user as Express.User)
  })
- 
+
 -passport.use(
 -  new Strategy(
 -    {
@@ -88,20 +88,20 @@ index 1979d6e..dc89dcf 100644
 +})
 +
 +passport.use('prisoner-auth', prisonerAuth.passportStrategy())
- 
+
  export default function setupAuthentication() {
    const router = Router()
 -  const tokenVerificationClient = new VerificationClient(config.apis.tokenVerification, logger)
- 
+
    router.use(passport.initialize())
    router.use(passport.session())
-@@ -48,43 +35,38 @@ export default function setupAuthentication() {
+@@ -48,40 +35,39 @@ export default function setupAuthentication() {
      return res.render('autherror')
    })
- 
+
 -  router.get('/sign-in', passport.authenticate('oauth2'))
 +  router.get('/sign-in', passport.authenticate('prisoner-auth'))
- 
+
    router.get('/sign-in/callback', (req, res, next) =>
 -    passport.authenticate('oauth2', {
 +    passport.authenticate('prisoner-auth', {
@@ -109,7 +109,7 @@ index 1979d6e..dc89dcf 100644
        failureRedirect: '/autherror',
      })(req, res, next),
    )
- 
+
 -  const authUrl = config.apis.hmppsAuth.externalUrl
 -  const authParameters = `client_id=${config.apis.hmppsAuth.authClientId}&redirect_uri=${config.ingressUrl}`
 -
@@ -128,7 +128,7 @@ index 1979d6e..dc89dcf 100644
 -    res.redirect(`${authUrl}/account-details?${authParameters}`)
 +    } else res.redirect('/')
    })
- 
+
    router.use(async (req, res, next) => {
 -    if (req.isAuthenticated() && (await tokenVerificationClient.verifyToken(req as unknown as AuthenticatedRequest))) {
 -      return next()
@@ -139,18 +139,16 @@ index 1979d6e..dc89dcf 100644
 -    req.session.returnTo = req.originalUrl
 -    return res.redirect('/sign-in')
 -  })
- 
--  router.use((req, res, next) => {
--    res.locals.user = req.user as HmppsUser
--    next()
+
 +    return prisonerAuth
 +      .validateAndRefreshUser(req.user as LaunchpadUser)
 +      .then(user => {
 +        req.user = user
-+        res.locals.user = user as HmppsUser
 +        next()
 +      })
 +      .catch(() => res.redirect('/autherror'))
-   })
- 
-   return router
++  })
++
+   router.use((req, res, next) => {
+     res.locals.user = req.user as HmppsUser
+     next()
