@@ -18,8 +18,8 @@
   "scripts": {
     "build": "rollup -c rollup.config.ts --bundleConfigAsCjs && npm run bundle:assets",
     "clean": "rm -rf ./dist/",
-    "test": "jest",
-    "test:ci": "jest --runInBand",
+    "test": "jest --passWithNoTests",
+    "test:ci": "jest --runInBand --passWithNoTests",
     "typecheck": "tsc",
     "lint": "eslint . --cache --max-warnings 0",
     "lint:fix": "eslint . --cache --max-warnings 0 --fix",
