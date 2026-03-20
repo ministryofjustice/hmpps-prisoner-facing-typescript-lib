@@ -1,0 +1,59 @@
+{
+  "name": "@ministryofjustice/hmpps-prisoner-facing-components",
+  "version": "0.0.4",
+  "description": "A collection of components for use when developing prisoner facing applications",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.esm.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "*.md",
+    "dist/**/*"
+  ],
+  "engines": {
+    "node": "24"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "rollup -c rollup.config.ts --bundleConfigAsCjs && npm run bundle:assets",
+    "clean": "rm -rf ./dist/",
+    "test": "jest --passWithNoTests",
+    "test:ci": "jest --runInBand --passWithNoTests",
+    "typecheck": "tsc",
+    "lint": "eslint . --cache --max-warnings 0",
+    "lint:fix": "eslint . --cache --max-warnings 0 --fix",
+    "bundle:assets": "npm run bundle:assetCopy && npm run bundle:assetBuild && npm run bundle:assetCleanup",
+    "bundle:assetCopy": "rm -rf dist/assets && cp -r src/assets dist/assets",
+    "bundle:assetBuild": "tsc dist/assets/js/all.ts --target es2020 --declaration --moduleResolution bundler --module es2015",
+    "bundle:assetCleanup": "find ./dist/assets -name '*.ts' ! -name '*.d.ts' -type f -delete",
+    "security_audit": "npx audit-ci --config audit-ci.json",
+    "prepare": "hmpps-precommit-hooks-prepare",
+    "precommit:secrets": "gitleaks git --pre-commit --redact --staged --verbose --config .gitleaks/config.toml",
+    "precommit:lint": "lint-staged",
+    "precommit:verify": "npm run typecheck && npm test",
+    "setup": "npm ci && hmpps-npm-script-run-allowlist"
+  },
+  "lint-staged": {
+    "*.{ts,css}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.json": [
+      "prettier --write"
+    ]
+  },
+  "author": "hmpps-launchpad-devs",
+  "homepage": "https://github.com/ministryofjustice/hmpps-prisoner-facing-typescript-lib#readme",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ministryofjustice/hmpps-prisoner-facing-typescript-lib.git"
+  },
+  "devDependencies": {
+    "@ministryofjustice/frontend-types": "1.0.0-alpha.2"
+  },
+  "dependencies": {
+    "dompurify": "3.3.3"
+  }
+}

@@ -1,6 +1,6 @@
 {
   "name": "@ministryofjustice/hmpps-prisoner-auth",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Middleware for providing authentication against Launchpad Auth",
   "author": "hmpps-launchpad-devs",
   "license": "MIT",
@@ -18,8 +18,7 @@
   "types": "./dist/index.d.ts",
   "files": [
     "*.md",
-    "dist/**/*",
-    "src/**/*"
+    "dist/**/*"
   ],
   "engines": {
     "node": "24"
