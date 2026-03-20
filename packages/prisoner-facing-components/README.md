@@ -4,6 +4,7 @@ This module defines a number of components intened for use when developing priso
 
 ## Front end components
 
+- [launchpad-footer](src/assets/pfs/components/launchpad-footer)
 - [launchpad-header](src/assets/pfs/components/launchpad-header)
 - [lazy-load](src/assets/pfs/components/lazy-load)
 
@@ -34,7 +35,7 @@ const njkEnv = nunjucks.configure(
 Then you can import the component you wish to use
 
 ```njk
-{% from "dps/components/header/macro.njk" import launchpadHeader %}
+{% from "dps/components/launchpad-header/macro.njk" import launchpadHeader %}
 ```
 
 3. Setup the styling in your `assets/scss/index.scss`
@@ -48,7 +49,7 @@ Either add all styles
 or just the components you wish to use
 
 ```scss
-  @import 'node_modules/@ministryofjustice/hmpps-prisoner-facing-components/dist/assets/pfs/components/header/header';
+  @import 'node_modules/@ministryofjustice/hmpps-prisoner-facing-components/dist/assets/pfs/components/launchpad-header';
 ```
 
 4. Add any client side javascript you wish to use
