@@ -4,7 +4,8 @@ This module defines a number of components intened for use when developing priso
 
 ## Front end components
 
-- [lazyLoad](src/assets/pfs/components/lazyLoad)
+- [launchpad-header](src/assets/pfs/components/launchpad-header)
+- [lazy-load](src/assets/pfs/components/lazy-load)
 
 ## Installation
 
