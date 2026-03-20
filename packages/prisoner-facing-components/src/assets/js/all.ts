@@ -1,10 +1,9 @@
-import * as lazyLoadModule from '../pfs/components/lazy-load/index'
-export const lazyLoad = lazyLoadModule
+import * as lazyLoad from '../pfs/components/lazy-load/index'
+import * as launchpadHeader from '../pfs/components/launchpad-header/index'
 
-import * as launchpadHeaderModule from '../pfs/components/launchpad-header/index'
-export const launchpadHeader = launchpadHeaderModule
+export { lazyLoad, launchpadHeader }
 
 export function initAll() {
-  lazyLoadModule.initAll()
+  lazyLoad.initAll()
   // NOTE: launchpadHeader.initAll() currently omitted on purpose as we aren't using this functionality
 }

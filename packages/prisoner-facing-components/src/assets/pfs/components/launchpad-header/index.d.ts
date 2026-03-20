@@ -1,1 +1,2 @@
-export function initAll(): void;
+// eslint-disable-next-line import/prefer-default-export
+export function initAll(): void
