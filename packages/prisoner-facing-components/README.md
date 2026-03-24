@@ -35,7 +35,7 @@ const njkEnv = nunjucks.configure(
 Then you can import the component you wish to use
 
 ```njk
-{% from "dps/components/launchpad-header/macro.njk" import launchpadHeader %}
+{% from "pfs/components/launchpad-header/macro.njk" import launchpadHeader %}
 ```
 
 3. Setup the styling in your `assets/scss/index.scss`

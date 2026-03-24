@@ -11,7 +11,7 @@ Ensure you have followed the setup instructions in the [main README](../../../..
 Simply import the nunjucks macro:
 
 ```njk
-{% from "dps/components/launchpad-header/macro.njk" import launchpadHeader %}
+{% from "pfs/components/launchpad-header/macro.njk" import launchpadHeader %}
 ```
 
 And put it in your markup:

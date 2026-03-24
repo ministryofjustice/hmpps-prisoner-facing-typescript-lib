@@ -11,7 +11,7 @@ Ensure you have followed the setup instructions in the [main README](../../../..
 Simply import the nunjucks macro:
 
 ```njk
-{% from "dps/components/launchpad-footer/macro.njk" import launchpadFooter %}
+{% from "pfs/components/launchpad-footer/macro.njk" import launchpadFooter %}
 ```
 
 And put it in your markup:
