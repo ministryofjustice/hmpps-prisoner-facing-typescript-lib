@@ -1,6 +1,14 @@
-export type LanguageOption = { code: string; href: string; label: string; isCurrent: boolean }
+export type LanguageOption = { code: string; href: string; label: string }
 
-export type LaunchpadHeaderParameters = {
+export type LaunchpadHeaderConfig = {
   user: { name: string }
-  languageOptions: LanguageOption[]
+  translations: {
+    enabled: boolean
+    currentLanguageCode: string
+    options: LanguageOption[]
+  }
+}
+
+export interface LaunchpadHeaderLocals {
+  launchpadHeaderConfig?: LaunchpadHeaderConfig
 }

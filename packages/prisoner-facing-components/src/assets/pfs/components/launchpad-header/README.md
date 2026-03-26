@@ -8,41 +8,45 @@ Ensure you have followed the setup instructions in the [main README](../../../..
 
 ## Usage
 
-Simply import the nunjucks macro:
+1. For type hinting to help you with the configuration of the header, you can extend `Express.Locals` with `LaunchpadHeaderLocals` in your `server/@types/express/index.d.ts`:
+
+```ts
+import { LaunchpadHeaderLocals } from '@ministryofjustice/hmpps-prisoner-facing-components'
+
+// ... further down ...
+
+export declare global {
+  namespace Express {
+    // .. etc ..
+    interface Locals extends LaunchpadHeaderLocals {
+      // .. etc ..
+    }
+  }
+}
+```
+
+2. Then in a middleware you need to set up the launchpad header options to be used in the view:
+
+```ts
+res.locals.launchpadHeaderConfig = {
+  user: { name: req.user.name },
+  translations: {
+    enabled: true,
+    currentLanguageCode: req.language,
+    options: [
+      { href: hrefOf('en'), code: 'en', label: 'English' },
+      { href: hrefOf('cy'), code: 'cy', label: 'Cymraeg' },
+    ],
+  },
+}
+```
+
+Note: you can see this implemented in [launchpad home here](https://github.com/ministryofjustice/hmpps-launchpad-home-ui/blob/main/server/middleware/setUpLaunchpadHeader.ts)
+
+3. Add the macro to your view file:
 
 ```njk
 {% from "pfs/components/launchpad-header/macro.njk" import launchpadHeader %}
-```
 
-And put it in your markup:
-
-```njk
-{{ launchpadHeader(user, languageOptions) }}
-```
-
-### Parameters
-
-|user|This is the current user (`LaunchpadUser` or object which confoms to `{ name: string }`), their name will be displayed in the header bar|
-|languageOptions|The language choices that will appear for the user to select. See `LaunchpadHeaderParameters` type to help your code conform to this parameter|
-
-### Example languageOptions setup
-
-In an express middleware:
-
-```ts
-import { LanguageOption } from '@ministryofjustice/hmpps-prisoner-facing-components'
-
-const translationHref = (code: string): string => {
-  const url = new URL(`${req.protocol}://${req.get('host')}${req.originalUrl}`)
-  url.searchParams.set('lng', code)
-  return url.toString()
-}
-
-const languageOptions: LanguageOption[] = [
-  { code: 'en', label: 'English', href: translationHref('en'), isCurrent: req.language === 'en' },
-  { code: 'cy', label: 'Cymraeg', href: translationHref('cy'), isCurrent: req.language === 'cy' },
-  // ... etc
-]
-
-res.locals.languageOptions = languageOptions
+{{ launchpadHeader(launchpadHeaderConfig) }}
 ```
