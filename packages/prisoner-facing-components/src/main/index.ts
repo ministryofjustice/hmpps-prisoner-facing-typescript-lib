@@ -1,1 +1,5 @@
-export { type LaunchpadHeaderParameters, type LanguageOption } from '../assets/pfs/components/launchpad-header/server'
+export {
+  type LanguageOption,
+  type LaunchpadHeaderConfig,
+  type LaunchpadHeaderLocals,
+} from '../assets/pfs/components/launchpad-header/server'
