@@ -1,6 +1,6 @@
 {
   "name": "@ministryofjustice/hmpps-prisoner-facing-components",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "A collection of components for use when developing prisoner facing applications",
   "main": "./dist/index.cjs",
   "module": "./dist/index.esm.js",
