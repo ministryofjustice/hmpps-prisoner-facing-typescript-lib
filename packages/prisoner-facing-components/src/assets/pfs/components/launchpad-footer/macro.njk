@@ -1,17 +1,65 @@
-{% macro launchpadFooter() %}
+{% macro launchpadFooter(config) %}
   <footer class="govuk-footer" role="contentinfo">
-    <div class="govuk-width-container ">
-      <div class="govuk-footer__meta">
-        <div class="govuk-footer__meta-item govuk-footer__meta-item--grow ">
-          <h2 class="govuk-visually-hidden">Links</h2>
-          <ul class="govuk-footer__inline-list">
-            <li class="govuk-footer__inline-list-item">
-              <a class="govuk-footer__link" rel="noreferrer noopener" target="_blank" href="/external/privacy-policy">
-                Privacy policy
-              </a>
-            </li>
-          </ul>
-      </div>
+    <div class="govuk-width-container">
+      {% if config.navigation %}
+        {{ _navigation(config.navigation) }}
+      {% endif %}
+
+      {% if config.navigation and config.meta %}
+        <hr class="govuk-footer__section-break">
+      {% endif %}
+
+      {% if config.meta %}
+        {{ _meta(config.meta) }}
+      {% endif %}
     </div>
   </footer>
+{% endmacro %}
+
+{% macro _meta(meta) %}
+  <div class="govuk-footer__meta">
+    <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
+      <h2 class="govuk-visually-hidden">{{ meta.hiddenDescription }}</h2>
+      <ul class="govuk-footer__inline-list">
+        {% for item in meta.items %}
+          <li class="govuk-footer__inline-list-item">
+            {{ _item(item) }}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+{% endmacro %}
+
+{% macro _navigation(navigation) %}
+  <div class="govuk-footer__navigation">
+    {% for list in navigation %}
+      <div class="govuk-footer__section govuk-grid-column-{{ list.width | default('full') }}">
+        {% if list.header %}
+          <h2 class="govuk-footer__heading govuk-heading-m">{{ list.header }}</h2>
+        {% endif %}
+
+        <ul class="govuk-footer__list govuk-footer__list--columns-{{ list.columns | default(1) }}">
+          {% for item in list.items %}
+            <li class="govuk-footer__list-item">
+              {{ _item(item) }}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endfor %}
+  </div>
+{% endmacro %}
+
+{% macro _item(item) %}
+  <a
+    class="govuk-footer__link"
+    rel="noreferrer noopener"
+    href="{{ item.href }}"
+    {% for attr, value in link.attributes %}
+      {{ attr }}="{{ value }}"
+    {% endfor %}
+  >
+    {{ item.label }}
+  </a>
 {% endmacro %}
