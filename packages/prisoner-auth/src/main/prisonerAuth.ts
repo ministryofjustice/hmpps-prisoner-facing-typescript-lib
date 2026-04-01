@@ -28,6 +28,11 @@ export type PrisonerAuthOptions = {
    */
   callbackUrl?: string
 
+  /**
+   * Optional: A callback that will be invoked on sucessful login, provides the logged in user as a parameter
+   */
+  onLoginSuccessCallback?: OnLoginSuccessCallback
+
   /** The Client ID of this application to send to Launchpad Auth */
   clientId: string
   /** The Client Secret of this application to send to Launchpad Auth */
@@ -72,6 +77,9 @@ export type PrisonerAuthOptions = {
   tokenFetcher?: TokenFetcher
 }
 
+export type OnLoginSuccessCallback = (user: LaunchpadUser) => Promise<void>
+const nullOnLoginSuccessCallback: OnLoginSuccessCallback = _ => Promise.resolve()
+
 export default class PrisonerAuth {
   readonly launchpadAuthUrl: string
 
@@ -80,6 +88,8 @@ export default class PrisonerAuth {
   readonly tokenUrl: string
 
   readonly callbackUrl: string
+
+  readonly onLoginSuccessCallback: OnLoginSuccessCallback
 
   readonly clientId: string
 
@@ -98,6 +108,7 @@ export default class PrisonerAuth {
     this.authorizationUrl = options.authorizationUrl ?? `${options.launchpadAuthUrl}/v1/oauth2/authorize`
     this.tokenUrl = options.tokenUrl ?? `${options.launchpadAuthUrl}/v1/oauth2/token`
     this.callbackUrl = options.callbackUrl ?? '/sign-in/callback'
+    this.onLoginSuccessCallback = options.onLoginSuccessCallback ?? nullOnLoginSuccessCallback
     this.clientId = options.clientId
     this.clientSecret = options.clientSecret
     this.scope = options.scope ?? ['user.basic.read', 'user.establishment.read', 'user.booking.read']
@@ -125,7 +136,7 @@ export default class PrisonerAuth {
         nonce: this.nonce ? 'true' : undefined,
         customHeaders: { authorization: this.authorizationToken() },
       },
-      ((
+      (async (
         _issuer: string,
         _profile: Profile,
         _context: object,
@@ -133,7 +144,11 @@ export default class PrisonerAuth {
         accessToken: string,
         refreshToken: string,
         done: VerifyCallback,
-      ) => done(null, userFromTokens({ idToken, accessToken, refreshToken }))) as VerifyFunction,
+      ) => {
+        const user = userFromTokens({ idToken, accessToken, refreshToken })
+        await this.onLoginSuccessCallback(user)
+        done(null, user)
+      }) as VerifyFunction,
     )
   }
 
