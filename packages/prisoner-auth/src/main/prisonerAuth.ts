@@ -1,5 +1,5 @@
 import OpenIDConnectStrategy, { Profile, VerifyCallback, VerifyFunction } from 'passport-openidconnect'
-import { IdToken, oauthClientToken, RefreshToken, Scope, tokenFromJwt, tokenFetcher, TokenFetcher } from './tokens'
+import { oauthClientToken, RefreshToken, Scope, tokenFromJwt, tokenFetcher, TokenFetcher } from './tokens'
 import { LaunchpadUser, userFromTokens } from './launchpadUser'
 import { seconds, timeFromNow, TimeSpan } from './timeSpans'
 
@@ -164,12 +164,11 @@ export default class PrisonerAuth {
    * @throws Error is thrown if the refreshToken has expired, the user must sign in again from scratch.
    */
   async validateAndRefreshUser(user: LaunchpadUser): Promise<LaunchpadUser> {
-    const idToken = tokenFromJwt<IdToken>(user.idToken)
     const refreshToken = tokenFromJwt<RefreshToken>(user.refreshToken)
     const tokenExpiryTime = timeFromNow(this.tokenMinimumLifespan)
 
     // Id Token still valid, return the current user
-    if (seconds(idToken.exp).isGreaterThanOrEqualTo(tokenExpiryTime)) {
+    if (seconds(user.idToken.exp).isGreaterThanOrEqualTo(tokenExpiryTime)) {
       return user
     }
 
