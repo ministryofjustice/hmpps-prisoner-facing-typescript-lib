@@ -1,7 +1,7 @@
 import { minutes, timeAgo, timeFromNow } from './timeSpans'
 import PrisonerAuth, { PrisonerAuthOptions } from './prisonerAuth'
 import { LaunchpadUser } from './launchpadUser'
-import { AccessToken, IdToken, RefreshToken, tokenFromJwt } from './tokens'
+import { AccessToken, RefreshToken, tokenFromJwt } from './tokens'
 import { aJwtOf, aUserWith } from './testUtils'
 
 describe('PrisonerAuth', () => {
@@ -65,8 +65,7 @@ describe('PrisonerAuth', () => {
           refreshTokenExp: timeFromNow(minutes(6)).seconds,
         })
 
-        const result = await prisonerAuth.validateAndRefreshUser(user as LaunchpadUser)
-        const idToken = tokenFromJwt<IdToken>(result.idToken)
+        const { idToken } = await prisonerAuth.validateAndRefreshUser(user as LaunchpadUser)
 
         expect(idToken.iat).toEqual(123_456_789)
       })
@@ -89,7 +88,7 @@ describe('PrisonerAuth', () => {
           })
 
           const result = await prisonerAuth.validateAndRefreshUser(user as LaunchpadUser)
-          const idToken = tokenFromJwt<IdToken>(result.idToken)
+          const { idToken } = result
           const refreshToken = tokenFromJwt<RefreshToken>(result.refreshToken)
           const accessToken = tokenFromJwt<AccessToken>(result.accessToken)
 

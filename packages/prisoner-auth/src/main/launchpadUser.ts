@@ -2,7 +2,7 @@ import { IdToken, RawTokens, tokenFromJwt } from './tokens'
 
 export type LaunchpadUser = {
   authSource: 'prisoner-auth'
-  idToken: string
+  idToken: IdToken
   refreshToken: string
   accessToken: string
   establishment: IdToken['establishment']
@@ -19,12 +19,13 @@ export type LaunchpadUser = {
 }
 
 export const userFromTokens = ({ idToken, accessToken, refreshToken }: RawTokens): LaunchpadUser => {
-  const { establishment, name, given_name: givenName, family_name: familyName, sub } = tokenFromJwt<IdToken>(idToken)
+  const parsedIdToken = tokenFromJwt<IdToken>(idToken)
+  const { establishment, name, given_name: givenName, family_name: familyName, sub } = parsedIdToken
   const authSource = 'prisoner-auth'
 
   return {
     authSource,
-    idToken,
+    idToken: parsedIdToken,
     refreshToken,
     accessToken,
     establishment,
