@@ -1,16 +1,8 @@
 import { IdToken, RawTokens, tokenFromJwt } from './tokens'
 
-export type LaunchpadUser = {
+type HmppsUserCompatibility = {
   authSource: 'prisoner-auth'
-  idToken: IdToken
-  refreshToken: string
-  accessToken: string
-  establishment: IdToken['establishment']
   name: string
-  givenName: string
-  familyName: string
-
-  // The following fields are for compatibility with HmppsUser only
   token: string
   username: string
   userId: string
@@ -18,22 +10,23 @@ export type LaunchpadUser = {
   userRoles: string[]
 }
 
+export type LaunchpadUser = {
+  idToken: IdToken
+  refreshToken: string
+  accessToken: string
+} & HmppsUserCompatibility
+
 export const userFromTokens = ({ idToken, accessToken, refreshToken }: RawTokens): LaunchpadUser => {
   const parsedIdToken = tokenFromJwt<IdToken>(idToken)
-  const { establishment, name, given_name: givenName, family_name: familyName, sub } = parsedIdToken
+  const { name, sub } = parsedIdToken
   const authSource = 'prisoner-auth'
 
   return {
-    authSource,
     idToken: parsedIdToken,
     refreshToken,
     accessToken,
-    establishment,
+    authSource,
     name,
-    givenName,
-    familyName,
-
-    // The following fields are for compatibility with HmppsUser only
     token: idToken,
     username: name,
     userId: sub,
