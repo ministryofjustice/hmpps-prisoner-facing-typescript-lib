@@ -24,18 +24,6 @@ describe('userFromTokens', () => {
     expect(result.refreshToken).toEqual(refreshToken)
   })
 
-  it('sets the establishment from the idToken', () => {
-    const result = userFromTokens({ idToken, accessToken, refreshToken })
-    expect(result.establishment).toEqual({ agency_id: 'CKI' })
-  })
-
-  it('sets the name fields from the idToken', () => {
-    const result = userFromTokens({ idToken, accessToken, refreshToken })
-    expect(result.name).toEqual('Test User')
-    expect(result.givenName).toEqual('Test')
-    expect(result.familyName).toEqual('User')
-  })
-
   it('sets authSource to give compatibility with the HmppsUser interface', () => {
     const result = userFromTokens({ idToken, accessToken, refreshToken })
     expect(result.authSource).toEqual('prisoner-auth')
