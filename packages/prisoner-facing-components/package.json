@@ -51,9 +51,9 @@
     "url": "git+https://github.com/ministryofjustice/hmpps-prisoner-facing-typescript-lib.git"
   },
   "devDependencies": {
-    "@ministryofjustice/frontend-types": "1.0.0-alpha.2"
+    "@ministryofjustice/frontend-types": "1.0.0"
   },
   "dependencies": {
-    "dompurify": "3.3.3"
+    "dompurify": "3.4.0"
   }
 }
