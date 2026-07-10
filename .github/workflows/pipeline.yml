@@ -81,7 +81,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           scope: '@ministryofjustice'
       - name: Update npm
-        run: npm install -g npm@latest
+        run: npm install -g npm@11
       - name: Install dependencies
         run: npm install
       - name: Build all packages
