@@ -1,6 +1,7 @@
 export type LanguageOption = { code: string; href: string; label: string }
 
 export type LaunchpadHeaderConfig = {
+  url?: string
   user: { name: string }
   translations: {
     enabled: boolean
