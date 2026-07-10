@@ -34,11 +34,7 @@ export type AccessToken = RefreshToken
 export type RawTokens = { idToken: string; refreshToken: string; accessToken: string }
 
 export type Scope =
-  | 'user.basic.read'
-  | 'user.establishment.read'
-  | 'user.booking.read'
-  | 'user.clients.read'
-  | 'user.clients.delete'
+  'user.basic.read' | 'user.establishment.read' | 'user.booking.read' | 'user.clients.read' | 'user.clients.delete'
 
 export const tokenFromJwt = <T>(token: string): T => JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString())
 
