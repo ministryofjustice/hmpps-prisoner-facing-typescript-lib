@@ -16,7 +16,7 @@
           </svg>
         </a>
 
-        <a class="launchpad-home-header__link launchpad-home-header__title__service-name govuk-!-font-weight-bold" href="{{ default(config.url, '/', true) }}">
+        <a class="launchpad-home-header__link launchpad-home-header__title__service-name govuk-!-font-weight-bold" href="{{ config.url | default("/") }}">
           Launchpad
         </a>
       </div>
