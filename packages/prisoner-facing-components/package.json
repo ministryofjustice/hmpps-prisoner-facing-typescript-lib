@@ -54,6 +54,6 @@
     "@ministryofjustice/frontend-types": "1.0.0"
   },
   "dependencies": {
-    "dompurify": "3.4.11"
+    "dompurify": "3.4.12"
   }
 }
