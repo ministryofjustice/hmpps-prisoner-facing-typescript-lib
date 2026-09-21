@@ -28,7 +28,7 @@ export const userFromTokens = ({ idToken, accessToken, refreshToken }: RawTokens
     authSource,
     name,
     token: idToken,
-    username: name,
+    username: sub,
     userId: sub,
     displayName: name,
     userRoles: [],
