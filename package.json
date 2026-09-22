@@ -43,7 +43,7 @@
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@rollup/plugin-typescript": "^12.3.0",
     "@tsconfig/node24": "^24.0.4",
-    "@types/jest": "^30.0.0",
+    "@types/jest": "30.0.0",
     "jest": "^30.4.2",
     "rollup": "^4.59.0",
     "rollup-plugin-dts": "^6.4.0",
