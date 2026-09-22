@@ -8,6 +8,7 @@
     "declaration": true,
     "module": "ESNext",
     "moduleResolution": "node",
+    "typeRoots": ["../../../node_modules/@ministryofjustice/frontend-types"]
   },
   "include": ["./src/**/*.ts"],
 }
