@@ -24,6 +24,13 @@ describe('userFromTokens', () => {
     expect(result.refreshToken).toEqual(refreshToken)
   })
 
+  it('sets the establishment from the idToken', () => {
+    const result = userFromTokens({ idToken, accessToken, refreshToken })
+
+    expect(result.establishment).toEqual(parsedIdToken.establishment)
+    expect(result.establishment).toEqual(result.idToken.establishment)
+  })
+
   it('sets authSource to give compatibility with the HmppsUser interface', () => {
     const result = userFromTokens({ idToken, accessToken, refreshToken })
     expect(result.authSource).toEqual('prisoner-auth')
