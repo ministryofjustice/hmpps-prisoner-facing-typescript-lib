@@ -1,0 +1,40 @@
+{
+  "name": "@ministryofjustice/prisoner-facing-services-utilities",
+  "version": "0.0.1",
+  "description": "Assorted helpers and conveniences for aiding development. Anything that does not fit into the other categories.",
+  "author": "hmpps-launchpad-devs",
+  "license": "MIT",
+  "homepage": "https://github.com/ministryofjustice/hmpps-prisoner-facing-typescript-lib#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ministryofjustice/hmpps-prisoner-facing-typescript-lib.git"
+  },
+  "publishConfig": {
+    "access": "public",
+    "tag": "latest"
+  },
+  "main": "./dist/index.cjs.js",
+  "module": "./dist/index.esm.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "*.md",
+    "dist/**/*"
+  ],
+  "engines": {
+    "node": "24"
+  },
+  "scripts": {
+    "build": "rollup -c rollup.config.ts --bundleConfigAsCjs",
+    "clean": "rm -rf ./dist/",
+    "test": "jest",
+    "lint": "eslint . --cache --max-warnings 0",
+    "lint-fix": "eslint . --cache --max-warnings 0 --fix",
+    "check-for-updates": "npx npm-check-updates -u"
+  },
+  "devDependencies": {
+  },
+  "dependencies": {
+  },
+  "peerDependencies": {
+  }
+}
