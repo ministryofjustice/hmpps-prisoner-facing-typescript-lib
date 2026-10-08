@@ -1,6 +1,6 @@
 {
   "name": "@ministryofjustice/hmpps-prisoner-auth",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Middleware for providing authentication against Launchpad Auth",
   "author": "hmpps-launchpad-devs",
   "license": "MIT",
@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "passport-openidconnect": "^0.1.2",
-    "superagent": "^10.3.0"
+    "superagent": "^10.4.1"
   },
   "peerDependencies": {
     "express": "^5.2.1"
