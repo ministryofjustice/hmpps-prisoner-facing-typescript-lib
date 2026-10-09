@@ -14,6 +14,8 @@ export const seconds = (numSeconds: number): TimeSpan => TimeSpan.seconds(numSec
 
 export const milliseconds = (numMilliseconds: number): TimeSpan => TimeSpan.milliseconds(numMilliseconds)
 
+export const days = (numDays: number): TimeSpan => TimeSpan.days(numDays)
+
 export const nothing = (): TimeSpan => TimeSpan.nothing()
 
 // Get a time span in the past
@@ -46,6 +48,11 @@ export class TimeSpan {
 
   static milliseconds(numMilliseconds: number): TimeSpan {
     return new TimeSpan(TimeSpan.seconds(numMilliseconds / 1000).minutes, numMilliseconds / 1000, numMilliseconds)
+  }
+
+  static days(numDays: number): TimeSpan {
+    const MINUTES_PER_DAY = 24 * 60
+    return TimeSpan.minutes(numDays * MINUTES_PER_DAY)
   }
 
   static nothing(): TimeSpan {

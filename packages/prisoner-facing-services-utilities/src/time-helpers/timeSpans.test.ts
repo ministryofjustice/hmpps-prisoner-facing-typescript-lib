@@ -1,4 +1,4 @@
-import { milliseconds, minutes, seconds, timeAgo, timeFromNow, TimeSpan } from './timeSpans'
+import { milliseconds, minutes, seconds, days, timeAgo, timeFromNow, TimeSpan } from './timeSpans'
 
 describe('time spans', () => {
   describe('minutes', () => {
@@ -13,6 +13,25 @@ describe('time spans', () => {
       'Given %p minute(s), minutes is %p, seconds is %p and milliseconds is %p',
       (example, expectedMinutes, expectedSeconds, expectedMilliseconds) => {
         const subject = minutes(example)
+        expect(subject.minutes).toEqual(expectedMinutes)
+        expect(subject.seconds).toEqual(expectedSeconds)
+        expect(subject.milliseconds).toEqual(expectedMilliseconds)
+      },
+    )
+  })
+
+  describe('days', () => {
+    const cases = [
+      [1, 1440, 86400, 86400000],
+      [5, 7200, 432000, 432000000],
+      [0.5, 720, 43200, 43200000],
+      [0, 0, 0, 0],
+    ]
+
+    test.each(cases)(
+      'Given %p days(s), minutes is %p, seconds is %p and milliseconds is %p',
+      (example, expectedMinutes, expectedSeconds, expectedMilliseconds) => {
+        const subject = days(example)
         expect(subject.minutes).toEqual(expectedMinutes)
         expect(subject.seconds).toEqual(expectedSeconds)
         expect(subject.milliseconds).toEqual(expectedMilliseconds)

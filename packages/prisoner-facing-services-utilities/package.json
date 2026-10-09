@@ -1,6 +1,6 @@
 {
   "name": "@ministryofjustice/hmpps-prisoner-facing-services-utilities",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Assorted helpers and conveniences for aiding development. Anything that does not fit into the other categories.",
   "author": "hmpps-launchpad-devs",
   "license": "MIT",
