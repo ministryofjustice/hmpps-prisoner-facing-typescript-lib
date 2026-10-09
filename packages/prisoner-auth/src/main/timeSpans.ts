@@ -1,4 +1,4 @@
-// A TimeSpans allows you to give meaning to a number and then read that number back and compare them in different formats
+// A TimeSpan allows you to give meaning to a number and then read that number back and compare them in different formats
 // ie.
 // seconds(60).minutes === 1
 // seconds(30).seconds === 30
@@ -6,7 +6,7 @@
 // milliseconds(1000).seconds === 1
 // milliseconds(2000).isEqualTo(seconds(2)) #=> true
 // minutes(5).
-// This allows a caller to just accept a TimeSpans and then work in the units it cares about
+// This allows a caller to just accept a TimeSpan and then work in the units it cares about
 
 export const minutes = (numMinutes: number): TimeSpan => TimeSpan.minutes(numMinutes)
 
