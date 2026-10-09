@@ -75,8 +75,6 @@ export type PrisonerAuthOptions = {
    * @see TokenFetcher
    */
   tokenFetcher?: TokenFetcher
-
-  extraConnectionOptions: OpenIDConnectStrategy.StrategyOptions
 }
 
 export type OnLoginSuccessCallback = (user: LaunchpadUser) => Promise<void>
@@ -105,8 +103,6 @@ export default class PrisonerAuth {
 
   readonly tokenFetcher: TokenFetcher
 
-  readonly extraConnectionOptions: OpenIDConnectStrategy.StrategyOptions
-
   constructor(options: PrisonerAuthOptions) {
     this.launchpadAuthUrl = options.launchpadAuthUrl
     this.authorizationUrl = options.authorizationUrl ?? `${options.launchpadAuthUrl}/v1/oauth2/authorize`
@@ -119,7 +115,6 @@ export default class PrisonerAuth {
     this.nonce = options.nonce ?? true
     this.tokenMinimumLifespan = options.tokenMinimumLifespan
     this.tokenFetcher = options.tokenFetcher ?? tokenFetcher
-    this.extraConnectionOptions = options.extraConnectionOptions ?? {}
   }
 
   /**
