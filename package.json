@@ -21,7 +21,8 @@
   "private": true,
   "workspaces": [
     "packages/prisoner-auth",
-    "packages/prisoner-facing-components"
+    "packages/prisoner-facing-components",
+    "packages/prisoner-facing-services-utilities"
   ],
   "engines": {
     "node": "24"

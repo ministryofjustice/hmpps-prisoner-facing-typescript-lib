@@ -25,7 +25,7 @@
     "lint:fix": "eslint . --cache --max-warnings 0 --fix",
     "bundle:assets": "npm run bundle:assetCopy && npm run bundle:assetBuild && npm run bundle:assetCleanup",
     "bundle:assetCopy": "rm -rf dist/assets && cp -r src/assets dist/assets",
-    "bundle:assetBuild": "tsc dist/assets/js/all.ts --target es2020 --declaration --moduleResolution bundler --module es2015",
+    "bundle:assetBuild": "tsc dist/assets/js/all.ts --target es2020 --declaration --ignoreConfig --moduleResolution bundler --module es2015",
     "bundle:assetCleanup": "find ./dist/assets -name '*.ts' ! -name '*.d.ts' -type f -delete",
     "security_audit": "npx audit-ci --config audit-ci.json",
     "prepare": "hmpps-precommit-hooks-prepare",

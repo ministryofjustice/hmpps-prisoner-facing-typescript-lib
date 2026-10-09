@@ -6,8 +6,8 @@
     "outDir": "./dist",
     "declarationDir": "./dist",
     "declaration": true,
-    "module": "ESNext",
-    "moduleResolution": "node",
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
   },
   "include": ["./src/**/*.ts"],
   "exclude": ["./src/assets/**/*.ts"]
