@@ -13,7 +13,6 @@ export type AuditLoggingCallback = (auditWhat: string, extraDetails?: object) =>
  */
 export type AuditEventSpecificLoggingCallback = (extraDetails?: object) => Promise<void>
 
-
 /**
  * Allows you to run arbitrary code and have it be audit logged in the correct format, via the auditLoggingCallback.
  *
@@ -59,7 +58,8 @@ export const auditLogged = async (
  * @param auditEventPrefix
  * @param auditLoggingCallback
  */
-export const auditEventLoggers = (auditEventPrefix: string,
+export const auditEventLoggers = (
+  auditEventPrefix: string,
   auditLoggingCallback: AuditLoggingCallback,
 ): {
   logAttempt: AuditEventSpecificLoggingCallback
