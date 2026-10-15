@@ -6,8 +6,8 @@
     "outDir": "./dist",
     "declarationDir": "./dist",
     "declaration": true,
-    "module": "NodeNext",
-    "moduleResolution": "nodenext"
+    "module": "ESNext",
+    "moduleResolution": "bundler"
   },
   "include": ["./src/**/*.ts"],
   "exclude": ["**/*.test.ts", "**/*.spec.ts", "**/__tests__/**"],
